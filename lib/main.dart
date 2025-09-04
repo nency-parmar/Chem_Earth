@@ -1,8 +1,16 @@
 import 'package:chem_earth_app/utils/import_export.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize database with sample data
+  final dbHelper = DatabaseHelper();
+  await dbHelper.initializeSampleData();
+
+  // Initialize controllers
   Get.put(FormulaController());
+  Get.put(QuizController());
+
   runApp(const MyApp());
 }
 

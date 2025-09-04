@@ -12,9 +12,9 @@ class _DashboardState extends State<Dashboard> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final List<Widget> _pages = [
-    const HomeScreen(),
+    HomeScreen(),
     const PeriodicTable(),
-    const QuizTopicSelectionScreen(),
+    QuizTopicSelectionScreen(),
     SettingsPage(),
   ];
 
@@ -27,17 +27,23 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final isDark = Get.isDarkMode;
-
+    final screenSize = MediaQuery.of(context).size;
+    final isTablet = screenSize.width > 600;
+    final isDesktop = screenSize.width > 900;
+    
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
+      drawer: isDesktop ? null : Drawer(
         backgroundColor: isDark ? Colors.grey[900] : Colors.white,
         child: SafeArea(
           child: Column(
             children: [
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                padding: EdgeInsets.symmetric(
+                  vertical: screenSize.height * 0.05, 
+                  horizontal: screenSize.width * 0.05
+                ),
                 decoration: const BoxDecoration(
                   color: Colors.blueGrey,
                   borderRadius: BorderRadius.only(
@@ -45,58 +51,53 @@ class _DashboardState extends State<Dashboard> {
                     bottomRight: Radius.circular(20),
                   ),
                 ),
-                child: Row(
+                child: Column(
                   children: [
                     CircleAvatar(
-                      radius: 50,
+                      radius: screenSize.width * 0.08,
                       backgroundColor: Colors.white,
                       child: Image.asset(
                         "assets/images/logowithouttext.png",
                         fit: BoxFit.contain,
-                        width: 70,
-                        height: 70,
+                        width: screenSize.width * 0.12,
+                        height: screenSize.width * 0.12,
                         errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    const Flexible(
-                      child: Text(
-                        "Welcome to ChemEarth!",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                        overflow: TextOverflow.ellipsis,
+                    const SizedBox(height: 10),
+                    Text(
+                      "Welcome to ChemEarth!",
+                      style: TextStyle(
+                        color: Colors.white, 
+                        fontSize: screenSize.width * 0.04,
+                        fontWeight: FontWeight.bold
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  _onItemTapped(0);
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.info_outline),
-                title: const Text('About'),
-                onTap: () {
-                  Get.to(() => AboutScreen()); // Replace with your About screen
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.perm_contact_cal_rounded),
-                title: const Text('Contact'),
-                onTap: () {
-                  Get.to(() => ContactScreen()); // Replace with your Contact screen
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.groups_rounded),
-                title: const Text('Our Team'),
-                onTap: () {
-                  Get.to(() => TeamScreen()); // Replace with your Team screen
-                },
+              Expanded(
+                child: ListView(
+                  children: [
+                    _buildDrawerTile(Icons.home, 'Home', () {
+                      _onItemTapped(0);
+                      Navigator.pop(context);
+                    }),
+                    _buildDrawerTile(Icons.info_outline, 'About', () {
+                      Get.to(() => AboutScreen());
+                    }),
+                    _buildDrawerTile(Icons.school, 'Topics', () {
+                      Get.to(() => TopicsPage());
+                    }),
+                    _buildDrawerTile(Icons.perm_contact_cal_rounded, 'Contact', () {
+                      Get.to(() => ContactScreen());
+                    }),
+                    _buildDrawerTile(Icons.groups_rounded, 'Our Team', () {
+                      Get.to(() => TeamScreen());
+                    }),
+                  ],
+                ),
               ),
             ],
           ),
@@ -120,16 +121,13 @@ class _DashboardState extends State<Dashboard> {
         ),
         centerTitle: true,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: Image.asset(
+          Image.asset(
               "assets/images/logowithouttext.png",
-              height: 36,
-              width: 36,
+              height: 86,
+              width: 86,
               errorBuilder: (context, error, stackTrace) =>
               const Icon(Icons.image_not_supported, color: Colors.grey),
             ),
-          ),
         ],
       ),
       body: AnimatedContainer(
@@ -175,7 +173,7 @@ class _DashboardState extends State<Dashboard> {
           elevation: 0,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home_outlined),
               label: 'Home',
             ),
             BottomNavigationBarItem(
@@ -183,15 +181,33 @@ class _DashboardState extends State<Dashboard> {
               label: 'Table',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.quiz),
+              icon: Icon(Icons.quiz_sharp),
               label: 'Quiz',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.settings_suggest_sharp),
               label: 'Settings',
             ),
           ],
         ),
+      ),
+    );
+  }
+  
+  Widget _buildDrawerTile(IconData icon, String title, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon, size: 24),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.04,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onTap: onTap,
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * 0.05,
+        vertical: 4,
       ),
     );
   }

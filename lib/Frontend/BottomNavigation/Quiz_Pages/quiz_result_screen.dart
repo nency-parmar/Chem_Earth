@@ -10,7 +10,7 @@ class QuizResultScreen extends StatefulWidget {
 }
 
 class _QuizResultScreenState extends State<QuizResultScreen> {
-  bool showBackButton = true; // will turn false after tapping "Give Test Again"
+  bool showBackButton = true;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
               if (showBackButton)
                 ElevatedButton.icon(
                   onPressed: () {
-                    Get.off(() => Dashboard());
+                    Get.offAll(() => Dashboard());
                   },
                   label: const Text(
                     'Back to Dashboard',
