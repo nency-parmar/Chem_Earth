@@ -33,57 +33,57 @@ class _HomeScreenState extends State<HomeScreen> {
               // Beautiful header section
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.fromLTRB(24, 20, 24, 24),
+                padding: const EdgeInsets.fromLTRB(10, 10, 8, 14),
                 child: Column(
                   children: [
                     // App logo and title
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Colors.blueGrey, Colors.blueGrey.shade700],
-                            ),
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.blueGrey.withValues(alpha: 0.3),
-                                blurRadius: 10,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.science,
-                            size: 28,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'ChemEarth',
-                                style: theme.textTheme.headlineMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: colorScheme.primary,
-                                ),
-                              ),
-                              Text(
-                                'Explore Chemical Formulas',
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: isDark ? Colors.grey.shade300 : Colors.grey.shade600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
+                    // Row(
+                    //   children: [
+                    //     Container(
+                    //       padding: const EdgeInsets.all(12),
+                    //       decoration: BoxDecoration(
+                    //         gradient: LinearGradient(
+                    //           colors: [Colors.blueGrey, Colors.blueGrey.shade700],
+                    //         ),
+                    //         borderRadius: BorderRadius.circular(16),
+                    //         boxShadow: [
+                    //           BoxShadow(
+                    //             color: Colors.blueGrey.withValues(alpha: 0.3),
+                    //             blurRadius: 10,
+                    //             offset: const Offset(0, 4),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //       child: const Icon(
+                    //         Icons.science,
+                    //         size: 28,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //     const SizedBox(width: 16),
+                    //     Expanded(
+                    //       child: Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           Text(
+                    //             'ChemEarth',
+                    //             style: theme.textTheme.headlineMedium?.copyWith(
+                    //               fontWeight: FontWeight.bold,
+                    //               color: colorScheme.primary,
+                    //             ),
+                    //           ),
+                    //           Text(
+                    //             'Explore Chemical Formulas',
+                    //             style: theme.textTheme.bodyMedium?.copyWith(
+                    //               color: isDark ? Colors.grey.shade300 : Colors.grey.shade600,
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // const SizedBox(height: 24),
                     
                     // Enhanced search bar
                     Container(

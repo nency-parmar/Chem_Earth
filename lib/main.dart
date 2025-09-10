@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:chem_earth_app/utils/import_export.dart';
 
 void main() async {
@@ -10,6 +12,7 @@ void main() async {
   // Initialize controllers
   Get.put(FormulaController());
   Get.put(QuizController());
+  Get.put(ThemeController()); // Register ThemeController globally
 
   runApp(const MyApp());
 }
@@ -19,9 +22,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Register ThemeController globally
-    Get.put(ThemeController());
-
     return GetBuilder<ThemeController>(
       builder: (themeController) {
         return GetMaterialApp(
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
               foregroundColor: Colors.white,
             ),
           ),
-          themeMode: themeController.themeMode,
+          themeMode: themeController.themeMode, // <-- Uses controller
           home: const SplashScreen(),
         );
       },

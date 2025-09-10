@@ -343,21 +343,23 @@ class _PeriodicTableState extends State<PeriodicTable>
   Widget _buildGridView(Size screenSize, bool isDark) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: GridView.builder(
-        itemCount: filteredElements.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: screenSize.width > 800
-              ? 6
-              : screenSize.width > 600
-                  ? 4
-                  : 3,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 0.8,
+      child: Expanded(
+        child: GridView.builder(
+          itemCount: filteredElements.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: screenSize.width > 800
+                ? 6
+                : screenSize.width > 600
+                    ? 4
+                    : 3,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 0.8,
+          ),
+          itemBuilder: (context, index) {
+            return _buildElementCard(filteredElements[index], index, isDark, true);
+          },
         ),
-        itemBuilder: (context, index) {
-          return _buildElementCard(filteredElements[index], index, isDark, true);
-        },
       ),
     );
   }
@@ -392,7 +394,7 @@ class _PeriodicTableState extends State<PeriodicTable>
     final subTextColor = isDark ? Colors.white70 : Colors.black54;
 
     return TweenAnimationBuilder(
-      duration: Duration(milliseconds: 100 + (index * 10)),
+      duration: Duration(milliseconds: 50 + (index * 10)),
       tween: Tween<double>(begin: 0.0, end: 1.0),
       builder: (context, double value, child) {
         return Transform.scale(
@@ -450,24 +452,28 @@ class _PeriodicTableState extends State<PeriodicTable>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                element.symbol,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: cardTextColor,
+                              Expanded(
+                                child: Text(
+                                  element.symbol,
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: cardTextColor,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 4),
-                              Text(
-                                element.name,
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: cardTextColor,
-                                  fontWeight: FontWeight.w500,
+                              Expanded(
+                                child: Text(
+                                  element.name,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: cardTextColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ],

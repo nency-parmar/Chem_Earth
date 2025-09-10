@@ -360,8 +360,13 @@ class _TopicsPageState extends State<TopicsPage>
   }
 
   void _onTopicTap(Map<String, dynamic> topic) {
-    // Navigate to subtopics page
-    Get.to(() => SubTopicsPage(topic: topic));
+    final normalizedTopic = {
+      'id': topic['TopicID'] ?? topic['id'],
+      'topic_name': topic['TopicName'] ?? topic['topic_name'],
+      'remarks': topic['Remarks'] ?? topic['remarks'],
+    };
+
+    Get.to(() => SubTopicsPage(topic: normalizedTopic));
   }
 
   void _showTopicDetails(Map<String, dynamic> topic) {

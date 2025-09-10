@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:chem_earth_app/utils/import_export.dart';
+import 'package:path/path.dart';
+import 'package:flutter/src/widgets/framework.dart' as Context;
+import 'dart:ffi';
+
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -36,7 +40,8 @@ class AboutScreen extends StatelessWidget {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+            padding:
+            const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +55,10 @@ class AboutScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             gradient: LinearGradient(
-                              colors: [Colors.blueGrey, Colors.blueGrey.shade700],
+                              colors: [
+                                Colors.blueGrey,
+                                Colors.blueGrey.shade700
+                              ],
                             ),
                             boxShadow: [
                               BoxShadow(
@@ -78,7 +86,7 @@ class AboutScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  
+
                   // Description card
                   Container(
                     width: double.infinity,
@@ -87,14 +95,14 @@ class AboutScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: isDark 
-                              ? Colors.black.withValues(alpha: 0.3) 
+                          color: isDark
+                              ? Colors.black.withValues(alpha: 0.3)
                               : Colors.grey.withValues(alpha: 0.2),
                           blurRadius: 15,
                           offset: const Offset(0, 8),
                         ),
                       ],
-                      border: isDark 
+                      border: isDark
                           ? Border.all(color: Colors.grey.shade700, width: 1)
                           : null,
                     ),
@@ -109,7 +117,7 @@ class AboutScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  
+
                   // Features section
                   Text(
                     "Features:",
@@ -119,23 +127,62 @@ class AboutScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  _buildFeatureCard(Icons.calculate, "Chemical Formulas", "Explore a comprehensive database of chemical compounds", isDark),
+                  _buildFeatureCard(Icons.calculate, "Chemical Formulas",
+                      "Explore a comprehensive database of chemical compounds", isDark),
                   const SizedBox(height: 12),
-                  _buildFeatureCard(Icons.book, "Topics", "Learn chemistry concepts with detailed explanations", isDark),
+                  _buildFeatureCard(Icons.book, "Topics",
+                      "Learn chemistry concepts with detailed explanations", isDark),
                   const SizedBox(height: 12),
-                  _buildFeatureCard(Icons.table_chart, "Periodic Table", "Interactive periodic table with element details", isDark),
+                  _buildFeatureCard(Icons.table_chart, "Periodic Table",
+                      "Interactive periodic table with element details", isDark),
                   const SizedBox(height: 12),
-                  _buildFeatureCard(Icons.quiz, "Quiz Section", "Test your chemistry knowledge with fun quizzes", isDark),
+                  _buildFeatureCard(Icons.quiz, "Quiz Section",
+                      "Test your chemistry knowledge with fun quizzes", isDark),
+                  const SizedBox(height: 32),
+
+                  // Partners card
+                  Text(
+                    "Partners:",
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      color: color.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  _buildPartnersCard(context),
+                  const SizedBox(height: 32),
+
+                  // Footer card
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: isDark ? Colors.grey.shade800 : Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: isDark
+                              ? Colors.black.withValues(alpha: 0.3)
+                              : Colors.grey.withValues(alpha: 0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: _buildFooter(context),
+                  ),
                   const SizedBox(height: 40),
-                  
+
                   // Version info
                   Center(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
                       decoration: BoxDecoration(
                         color: color.primary.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: color.primary.withValues(alpha: 0.3)),
+                        border: Border.all(
+                            color: color.primary.withValues(alpha: 0.3)),
                       ),
                       child: Text(
                         "Version 1.0.0",
@@ -156,21 +203,22 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureCard(IconData icon, String title, String description, bool isDark) {
+  Widget _buildFeatureCard(
+      IconData icon, String title, String description, bool isDark) {
     return Container(
       decoration: BoxDecoration(
         color: isDark ? Colors.grey.shade800 : Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: isDark 
+            color: isDark
                 ? Colors.black.withValues(alpha: 0.3)
                 : Colors.grey.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ],
-        border: isDark 
+        border: isDark
             ? Border.all(color: Colors.grey.shade700, width: 1)
             : null,
       ),
@@ -185,7 +233,7 @@ class AboutScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
-              icon, 
+              icon,
               color: Colors.blueGrey,
               size: 28,
             ),
@@ -208,7 +256,9 @@ class AboutScreen extends StatelessWidget {
                   description,
                   style: TextStyle(
                     fontSize: 14,
-                    color: isDark ? Colors.grey.shade300 : Colors.grey.shade600,
+                    color: isDark
+                        ? Colors.grey.shade300
+                        : Colors.grey.shade600,
                     height: 1.4,
                   ),
                 ),
@@ -219,4 +269,126 @@ class AboutScreen extends StatelessWidget {
       ),
     );
   }
+
+  // Partners Card
+  Widget _buildPartnersCard(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: isDark ? Colors.grey.shade800 : Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: isDark
+                ? Colors.black.withOpacity(0.3)
+                : Colors.grey.withOpacity(0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: Image.asset(
+                  isDark
+                      ? "assets/images/du_white.png"
+                      : "assets/images/DU_Original.jpeg",
+                  height: 80,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Expanded(
+                child: Image.asset(
+                  isDark
+                      ? "assets/images/aswdc_transparent.png"
+                      : "assets/images/aswdc_black.jpeg",
+                  height: 80,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            "Darshan University and ASWDC are our proud partners in making ChemEarth more interactive and student-friendly.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: isDark ? Colors.grey.shade300 : Colors.grey.shade700,
+              fontSize: 14,
+              height: 1.4,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Footer
+  Widget _buildFooter(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.copyright,
+                size: 14, color: isDark ? Colors.grey.shade400 : Colors.grey),
+            const SizedBox(width: 4),
+            Text(
+              '2025 Darshan University',
+              style: TextStyle(
+                color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'All rights reserved - ',
+              style: TextStyle(
+                color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
+              ),
+            ),
+            Text(
+              'Privacy Policy',
+              style: TextStyle(
+                color: isDark ? Colors.white : Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Made with ",
+              style: TextStyle(
+                color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
+              ),
+            ),
+            const Icon(Icons.favorite, color: Colors.red),
+            Text(
+              " by Nency Parmar",
+              style: TextStyle(
+                color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
 }

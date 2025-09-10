@@ -1,0 +1,324 @@
+[
+  {
+    "id": 1,
+    "topic_id": 1,
+    "subtopic_name": "Introduction to Chemistry",
+    "remarks": "What is chemistry and its importance",
+    "details": "Chemistry is the branch of science that deals with the study of matter—its composition, structure, properties, and the changes it undergoes. It explains the interactions of atoms and molecules and how new substances are formed. Chemistry plays a vital role in our daily lives, from the food we eat, the medicines we take, and the clothes we wear, to the fuels we use. It connects physics and biology, forming the central science. The importance of chemistry is evident in industries such as pharmaceuticals, agriculture, energy, cosmetics, and even space research. Without chemistry, we wouldn’t understand materials like plastics, alloys, or nanomaterials. It also helps us understand natural processes like respiration, digestion, and photosynthesis. Thus, chemistry is the foundation for innovations that improve quality of life and solve real-world problems."
+  },
+  {
+    "id": 2,
+    "topic_id": 1,
+    "subtopic_name": "Matter and Energy",
+    "remarks": "Properties of matter and forms of energy",
+    "details": "Matter is anything that has mass and occupies space. It exists in different states: solid, liquid, gas, and plasma. Each state has unique properties, such as shape, volume, and particle arrangement. Energy, on the other hand, is the capacity to do work or produce heat. The two are closely linked: matter can store or release energy during physical and chemical changes. Energy exists in various forms such as kinetic, potential, thermal, chemical, electrical, and nuclear energy. For example, when fuel burns, chemical energy is converted into heat and light. The Law of Conservation of Energy states that energy can neither be created nor destroyed, only transformed from one form to another. Matter itself can be converted into energy (E = mc²), which is the basis of nuclear reactions. Understanding matter and energy allows us to explain phenomena like phase changes, chemical reactions, and even the functioning of the universe."
+  },
+  {
+    "id": 3,
+    "topic_id": 1,
+    "subtopic_name": "Measurement and Units",
+    "remarks": "Scientific measurement systems and units",
+    "details": "Scientific study requires accurate measurement. Measurement involves comparing a quantity with a standard unit. In chemistry, quantities such as mass, volume, temperature, length, and pressure are frequently measured. To avoid confusion, scientists use the SI (International System of Units), which provides a universal set of measurement standards. For example, mass is measured in kilograms (kg), length in meters (m), time in seconds (s), and temperature in kelvin (K). Derived units, such as density (kg/m³) or pressure (Pascal, Pa), are combinations of base units. Accuracy (how close a measurement is to the true value) and precision (how close repeated measurements are to each other) are important. Scientific notation is often used to represent very large or small numbers, while significant figures express the reliability of measurements. Proper measurement and units ensure consistency in experiments and communication across the scientific world."
+  },
+  {
+    "id": 4,
+    "topic_id": 1,
+    "subtopic_name": "Scientific Method",
+    "remarks": "Steps of scientific investigation",
+    "details": "The scientific method is a systematic process used by scientists to investigate phenomena, acquire new knowledge, or validate existing theories. It begins with observation, where one notices a natural event or pattern. Next comes forming a hypothesis, which is a testable explanation. Then, experiments are designed to test the hypothesis under controlled conditions. Data collected from experiments are analyzed, and conclusions are drawn. If results support the hypothesis, it may become a theory after repeated testing. If results contradict it, the hypothesis is revised or rejected. A good scientific method also involves prediction, replication, and peer review to ensure reliability. This method ensures that science is objective, logical, and based on evidence. In chemistry, the scientific method helps discover new reactions, develop medicines, and create innovative materials, ensuring knowledge keeps evolving with proof and experimentation."
+  },
+  {
+    "id": 7,
+    "topic_id": 2,
+    "subtopic_name": "Subatomic Particles",
+    "remarks": "Protons, neutrons, and electrons",
+    "details": "Subatomic particles are the building blocks of atoms. Protons carry a positive charge and reside in the nucleus, neutrons have no charge and also reside in the nucleus, and electrons carry a negative charge and orbit the nucleus. Their arrangement determines the chemical properties of elements."
+  },
+  {
+    "id": 8,
+    "topic_id": 2,
+    "subtopic_name": "Atomic Models",
+    "remarks": "Evolution of atomic theory",
+    "details": "This subtopic traces the development of atomic models from Dalton's solid sphere model to the modern quantum mechanical model, explaining how our understanding of atomic structure has evolved."
+  },
+  {
+    "id": 9,
+    "topic_id": 2,
+    "subtopic_name": "Electron Configuration",
+    "remarks": "Arrangement of electrons in atoms",
+    "details": "Electron configuration describes how electrons are distributed in atomic orbitals. It follows principles such as the Pauli exclusion principle and Hund's rule, which help explain chemical behavior and bonding."
+  },
+  {
+    "id": 10,
+    "topic_id": 2,
+    "subtopic_name": "Quantum Numbers",
+    "remarks": "Describing electron positions and properties",
+    "details": "Quantum numbers specify the properties of electrons in atoms, including their energy level, shape, orientation, and spin, providing a detailed description of electron behavior."
+  },
+  {
+    "id": 11,
+    "topic_id": 3,
+    "subtopic_name": "Ionic Bonding",
+    "remarks": "Formation and properties of ionic bonds",
+    "details": "Ionic bonding involves the transfer of electrons from one atom to another, resulting in oppositely charged ions that attract each other. This bonding forms ionic compounds with characteristic properties such as high melting points and electrical conductivity when molten."
+  },
+  {
+    "id": 12,
+    "topic_id": 3,
+    "subtopic_name": "Covalent Bonding",
+    "remarks": "Formation and properties of covalent bonds",
+    "details": "Covalent bonds form when atoms share electron pairs. This type of bonding is common between non-metal atoms and results in molecules with specific shapes and properties."
+  },
+  {
+    "id": 13,
+    "topic_id": 3,
+    "subtopic_name": "Metallic Bonding",
+    "remarks": "Properties of metallic bonds",
+    "details": "Metallic bonding features a lattice of metal ions surrounded by a sea of delocalized electrons, which accounts for properties like conductivity, malleability, and ductility in metals."
+  },
+  {
+    "id": 14,
+    "topic_id": 3,
+    "subtopic_name": "Intermolecular Forces",
+    "remarks": "Forces between molecules",
+    "details": "Intermolecular forces are attractions between molecules, including hydrogen bonding, dipole-dipole interactions, and London dispersion forces, influencing physical properties such as boiling and melting points."
+  },
+  {
+    "id": 15,
+    "topic_id": 4,
+    "subtopic_name": "Periodic Law",
+    "remarks": "Organization principles of the periodic table",
+    "details": "The Periodic Law states that the properties of elements are periodic functions of their atomic numbers, which is the basis for the arrangement of elements in the periodic table."
+  },
+  {
+    "id": 16,
+    "topic_id": 4,
+    "subtopic_name": "Periodic Trends",
+    "remarks": "Trends in atomic properties",
+    "details": "Periodic trends include changes in atomic radius, ionization energy, electron affinity, and electronegativity across periods and groups, helping predict element behavior."
+  },
+  {
+    "id": 17,
+    "topic_id": 4,
+    "subtopic_name": "Element Groups",
+    "remarks": "Properties of element families",
+    "details": "Element groups are families of elements with similar chemical properties due to their valence electron configurations, such as alkali metals, halogens, and noble gases."
+  },
+  {
+    "id": 18,
+    "topic_id": 4,
+    "subtopic_name": "Transition Elements",
+    "remarks": "Properties of transition metals",
+    "details": "Transition elements are metals with variable oxidation states, often forming colored compounds and acting as catalysts in chemical reactions."
+  },
+  {
+    "id": 19,
+    "topic_id": 5,
+    "subtopic_name": "Kinetic Molecular Theory",
+    "remarks": "Theory explaining behavior of gases",
+    "details": "The kinetic molecular theory explains gas behavior by assuming particles are in constant, random motion and that collisions are elastic."
+  },
+  {
+    "id": 20,
+    "topic_id": 5,
+    "subtopic_name": "Gas Laws",
+    "remarks": "Mathematical relationships for gases",
+    "details": "Gas laws describe relationships between pressure, volume, temperature, and amount of gas, including Boyle's, Charles's, and the ideal gas law."
+  },
+  {
+    "id": 21,
+    "topic_id": 5,
+    "subtopic_name": "Liquids and Solids",
+    "remarks": "Properties of condensed phases",
+    "details": "Liquids and solids are condensed phases with definite volume; liquids flow and take container shape, solids have fixed shape and volume."
+  },
+  {
+    "id": 22,
+    "topic_id": 5,
+    "subtopic_name": "Phase Changes",
+    "remarks": "Transitions between states of matter",
+    "details": "Phase changes are physical transitions between solid, liquid, gas, and plasma states, such as melting, freezing, vaporization, and condensation."
+  },
+  {
+    "id": 23,
+    "topic_id": 6,
+    "subtopic_name": "Types of Reactions",
+    "remarks": "Classification of chemical reactions",
+    "details": "Chemical reactions are classified as synthesis, decomposition, single replacement, double replacement, and combustion, each with unique characteristics."
+  },
+  {
+    "id": 24,
+    "topic_id": 6,
+    "subtopic_name": "Stoichiometry",
+    "remarks": "Quantitative relationships in reactions",
+    "details": "Stoichiometry involves calculating the amounts of reactants and products in chemical reactions using balanced chemical equations."
+  },
+  {
+    "id": 25,
+    "topic_id": 6,
+    "subtopic_name": "Reaction Rates",
+    "remarks": "Factors affecting reaction speed",
+    "details": "Reaction rates depend on concentration, temperature, surface area, catalysts, and the nature of reactants."
+  },
+  {
+    "id": 26,
+    "topic_id": 6,
+    "subtopic_name": "Chemical Equilibrium",
+    "remarks": "Dynamic balance in reactions",
+    "details": "Chemical equilibrium occurs when forward and reverse reaction rates are equal, resulting in constant concentrations of reactants and products."
+  },
+  {
+    "id": 27,
+    "topic_id": 7,
+    "subtopic_name": "Acid-Base Theories",
+    "remarks": "Different definitions of acids and bases",
+    "details": "Acid-base theories include Arrhenius, Brønsted-Lowry, and Lewis definitions, describing acids and bases based on proton or electron pair transfer."
+  },
+  {
+    "id": 28,
+    "topic_id": 7,
+    "subtopic_name": "pH and pOH",
+    "remarks": "Measuring acidity and basicity",
+    "details": "pH and pOH are logarithmic scales measuring acidity and basicity based on hydrogen and hydroxide ion concentrations."
+  },
+  {
+    "id": 29,
+    "topic_id": 7,
+    "subtopic_name": "Neutralization",
+    "remarks": "Reactions between acids and bases",
+    "details": "Neutralization is a reaction where an acid and a base form water and a salt, often resulting in a neutral solution."
+  },
+  {
+    "id": 30,
+    "topic_id": 7,
+    "subtopic_name": "Buffer Solutions",
+    "remarks": "Solutions that resist pH changes",
+    "details": "Buffer solutions maintain stable pH by neutralizing added acids or bases, important in biological and chemical systems."
+  },
+  {
+    "id": 31,
+    "topic_id": 8,
+    "subtopic_name": "Hydrocarbons",
+    "remarks": "Compounds containing only carbon and hydrogen",
+    "details": "Hydrocarbons are organic compounds made of carbon and hydrogen, including alkanes, alkenes, alkynes, and aromatic hydrocarbons."
+  },
+  {
+    "id": 32,
+    "topic_id": 8,
+    "subtopic_name": "Functional Groups",
+    "remarks": "Common organic molecular groups",
+    "details": "Functional groups are specific atom groups in molecules that determine chemical properties, such as hydroxyl, carbonyl, carboxyl, and amino groups."
+  },
+  {
+    "id": 33,
+    "topic_id": 8,
+    "subtopic_name": "Isomerism",
+    "remarks": "Different arrangements of same molecular formula",
+    "details": "Isomers have the same molecular formula but different structures, leading to different chemical and physical properties."
+  },
+  {
+    "id": 34,
+    "topic_id": 8,
+    "subtopic_name": "Organic Reactions",
+    "remarks": "Common reactions in organic chemistry",
+    "details": "Organic reactions include substitution, addition, elimination, and rearrangement reactions, essential for synthesizing organic compounds."
+  },
+  {
+    "id": 35,
+    "topic_id": 9,
+    "subtopic_name": "Coordination Compounds",
+    "remarks": "Complex ions and coordination chemistry",
+    "details": "Coordination compounds consist of a central metal atom or ion bonded to surrounding molecules or ions called ligands. These complexes exhibit unique structures, bonding, and properties important in catalysis, bioinorganic chemistry, and materials science."
+  },
+  {
+    "id": 36,
+    "topic_id": 9,
+    "subtopic_name": "Metallurgy",
+    "remarks": "Extraction and purification of metals",
+    "details": "Metallurgy is the science and technology of extracting metals from ores and refining them. It includes processes like roasting, smelting, and electrolysis to obtain pure metals for industrial use."
+  },
+  {
+    "id": 37,
+    "topic_id": 9,
+    "subtopic_name": "Non-metals",
+    "remarks": "Properties and compounds of non-metals",
+    "details": "Non-metals are elements that generally lack metallic properties. They form a variety of compounds, including acids, oxides, and salts, and play vital roles in biological and environmental chemistry."
+  },
+  {
+    "id": 38,
+    "topic_id": 9,
+    "subtopic_name": "Industrial Chemistry",
+    "remarks": "Large-scale chemical processes",
+    "details": "Industrial chemistry involves chemical processes on a large scale to produce materials like fertilizers, plastics, pharmaceuticals, and fuels. It focuses on efficiency, safety, and environmental impact."
+  },
+  {
+    "id": 39,
+    "topic_id": 10,
+    "subtopic_name": "Chemical Kinetics",
+    "remarks": "Study of reaction rates and mechanisms",
+    "details": "Chemical kinetics studies the speed of chemical reactions and the steps by which they occur. It helps in understanding reaction mechanisms and factors affecting reaction rates."
+  },
+  {
+    "id": 40,
+    "topic_id": 10,
+    "subtopic_name": "Surface Chemistry",
+    "remarks": "Phenomena at surfaces and interfaces",
+    "details": "Surface chemistry examines chemical phenomena at interfaces, including adsorption, catalysis, and surface tension, which are crucial in materials science and catalysis."
+  },
+  {
+    "id": 41,
+    "topic_id": 10,
+    "subtopic_name": "Solutions",
+    "remarks": "Properties of mixtures and solutions",
+    "details": "Solutions are homogeneous mixtures of two or more substances. This subtopic covers solubility, concentration units, colligative properties, and factors affecting solution behavior."
+  },
+  {
+    "id": 42,
+    "topic_id": 10,
+    "subtopic_name": "Colligative Properties",
+    "remarks": "Properties that depend on particle concentration",
+    "details": "Colligative properties depend on the number of solute particles in a solvent and include boiling point elevation, freezing point depression, vapor pressure lowering, and osmotic pressure."
+  },
+  {
+    "id": 43,
+    "topic_id": 11,
+    "subtopic_name": "First Law of Thermodynamics",
+    "remarks": "Conservation of energy principle",
+    "details": "The first law of thermodynamics states that energy cannot be created or destroyed, only transformed. It relates changes in internal energy to heat and work done by or on a system."
+  },
+  {
+    "id": 44,
+    "topic_id": 11,
+    "subtopic_name": "Enthalpy",
+    "remarks": "Heat content of systems",
+    "details": "Enthalpy is a thermodynamic quantity representing the total heat content of a system at constant pressure. It is used to quantify heat changes during chemical reactions."
+  },
+  {
+    "id": 45,
+    "topic_id": 11,
+    "subtopic_name": "Entropy",
+    "remarks": "Measure of disorder in systems",
+    "details": "Entropy measures the degree of disorder or randomness in a system. It helps predict the spontaneity of processes and the direction of chemical reactions."
+  },
+  {
+    "id": 46,
+    "topic_id": 11,
+    "subtopic_name": "Gibbs Free Energy",
+    "remarks": "Energy available to do work",
+    "details": "Gibbs free energy combines enthalpy and entropy to determine the spontaneity of a process at constant temperature and pressure. Negative Gibbs free energy indicates a spontaneous reaction."
+  },
+  {
+    "id": 47,
+    "topic_id": 12,
+    "subtopic_name": "Redox Reactions",
+    "remarks": "Reactions involving electron transfer",
+    "details": "Redox reactions involve the transfer of electrons between species, encompassing oxidation (loss of electrons) and reduction (gain of electrons). They are fundamental to energy production and corrosion."
+  },
+  {
+    "id": 48,
+    "topic_id": 12,
+    "subtopic_name": "Electrochemical Cells",
+    "remarks": "Galvanic and electrolytic cells",
+    "details": "Electrochemical cells convert chemical energy into electrical energy (galvanic cells) or use electrical energy to drive chemical reactions (electrolytic cells). They are essential in batteries and electroplating."
+  }
+]

@@ -3,6 +3,8 @@ export 'package:get/get.dart';
 export 'package:intl/intl.dart' hide TextDirection;
 export 'package:sqflite/sqflite.dart';
 export 'package:permission_handler/permission_handler.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
 // Utils
 export 'package:chem_earth_app/utils/const.dart';
@@ -16,6 +18,7 @@ export 'package:chem_earth_app/Frontend/BottomNavigation/Models/formula_model.da
 export 'package:chem_earth_app/Frontend/BottomNavigation/Models/element_model.dart';
 export 'package:chem_earth_app/Frontend/BottomNavigation/Models/topic_model.dart';
 export 'package:chem_earth_app/Frontend/BottomNavigation/Models/quiz_model.dart';
+export 'package:chem_earth_app/Frontend/BottomNavigation/Models/subtopic_model.dart';
 
 // Controllers
 export 'package:chem_earth_app/Frontend/BottomNavigation/Controllers/formula_controller.dart';
@@ -26,6 +29,7 @@ export 'package:chem_earth_app/Frontend/BottomNavigation/Controllers/permission_
 
 // Services
 export 'package:chem_earth_app/Frontend/BottomNavigation/Services/permission_service.dart';
+export 'package:chem_earth_app/Frontend/BottomNavigation/Services/subtopic_service.dart';
 
 // Views and Data
 export 'package:chem_earth_app/Frontend/BottomNavigation/Views/formula_data.dart';
@@ -51,6 +55,7 @@ export 'package:chem_earth_app/Frontend/Drawer_Pages/contact_screen.dart';
 export 'package:chem_earth_app/Frontend/Drawer_Pages/team_screen.dart';
 export 'package:chem_earth_app/Frontend/Drawer_Pages/topics_page.dart';
 export 'package:chem_earth_app/Frontend/Drawer_Pages/subtopics_page.dart';
+export 'package:chem_earth_app/Frontend/Drawer_Pages/subtopics_details.dart';
 
 
 // Main Pages

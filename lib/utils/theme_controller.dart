@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 class ThemeController extends GetxController {
-  ThemeMode _themeMode = ThemeMode.system;
+  // Default to light mode
+  ThemeMode _themeMode = ThemeMode.light;
 
   ThemeMode get themeMode => _themeMode;
 
@@ -10,7 +11,7 @@ class ThemeController extends GetxController {
 
   void toggleTheme(bool isDark) {
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
-    update(); // Notifies GetBuilder
+    update(); // Notify GetBuilder
   }
 
   void setSystemDefault() {
