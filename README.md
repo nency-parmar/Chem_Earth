@@ -115,6 +115,6 @@ This project is licensed under the MIT License.
 
 ---
 
-**Built with ❤️ using Flutter**
+**Built with ❤️ by Nency Parmar**
 
 *Making chemistry education accessible and engaging for everyone.*
