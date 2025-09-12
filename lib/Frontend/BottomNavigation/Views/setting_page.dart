@@ -1,3 +1,4 @@
+import 'package:chem_earth_app/Frontend/BottomNavigation/Views/feedback_page.dart';
 import 'package:chem_earth_app/utils/import_export.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -126,22 +127,13 @@ class SettingsPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 _buildNavigationListTile(
-                  Icons.contact_support_outlined,
-                  'Contact Us',
-                  'Get in touch with our team',
-                  () => Get.to(() => const ContactScreen()),
+                  Icons.feedback_outlined,
+                  'Give Feedback',
+                  'Tell us what you think about ChemEarth.',
+                      () => Get.to(() => const FeedbackPage()),
                   isDark,
                   theme,
-                ),
-                const SizedBox(height: 12),
-                _buildNavigationListTile(
-                  Icons.group_outlined,
-                  'Our Team',
-                  'Meet the people behind ChemEarth',
-                  () => Get.to(() => const TeamScreen()),
-                  isDark,
-                  theme,
-                ),
+                )
               ],
               isDark,
               theme,

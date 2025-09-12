@@ -33,7 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
               // Beautiful header section
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.fromLTRB(10, 10, 8, 14),
+                padding: const EdgeInsets.fromLTRB(5, 10, 5, 14),
+                // padding: const EdgeInsets.fromLTRB(left, top, right, bottom),
                 child: Column(
                   children: [
                     // App logo and title
@@ -223,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
               : null,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(10.0),
           child: Row(
             children: [
               // Formula symbol in a styled container

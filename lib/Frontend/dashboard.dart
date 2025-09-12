@@ -15,7 +15,7 @@ class _DashboardState extends State<Dashboard> {
     HomeScreen(),
     const PeriodicTable(),
     QuizTopicSelectionScreen(),
-    SettingsPage(),
+    TopicsPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -33,84 +33,85 @@ class _DashboardState extends State<Dashboard> {
     
     return Scaffold(
       key: _scaffoldKey,
-      drawer: isDesktop ? null : Drawer(
-        backgroundColor: isDark ? Colors.grey[900] : Colors.white,
-        child: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(
-                  vertical: screenSize.height * 0.05, 
-                  horizontal: screenSize.width * 0.05
-                ),
-                decoration: const BoxDecoration(
-                  color: Colors.blueGrey,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: screenSize.width * 0.08,
-                      backgroundColor: Colors.white,
-                      child: Image.asset(
-                        "assets/images/logowithouttext.png",
-                        fit: BoxFit.contain,
-                        width: screenSize.width * 0.12,
-                        height: screenSize.width * 0.12,
-                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      "Welcome to ChemEarth!",
-                      style: TextStyle(
-                        color: Colors.white, 
-                        fontSize: screenSize.width * 0.04,
-                        fontWeight: FontWeight.bold
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    _buildDrawerTile(Icons.home, 'Home', () {
-                      _onItemTapped(0);
-                      Navigator.pop(context);
-                    }),
-                    _buildDrawerTile(Icons.info_outline, 'About', () {
-                      Get.to(() => AboutScreen());
-                    }),
-                    _buildDrawerTile(Icons.school, 'Topics', () {
-                      Get.to(() => TopicsPage());
-                    }),
-                    _buildDrawerTile(Icons.perm_contact_cal_rounded, 'Contact', () {
-                      Get.to(() => ContactScreen());
-                    }),
-                    _buildDrawerTile(Icons.groups_rounded, 'Our Team', () {
-                      Get.to(() => TeamScreen());
-                    }),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      // drawer: isDesktop ? null : Drawer(
+      //   backgroundColor: isDark ? Colors.grey[900] : Colors.white,
+      //   child: SafeArea(
+      //     child: Column(
+      //       children: [
+      //         Container(
+      //           width: double.infinity,
+      //           padding: EdgeInsets.symmetric(
+      //             vertical: screenSize.height * 0.05, 
+      //             horizontal: screenSize.width * 0.05
+      //           ),
+      //           decoration: const BoxDecoration(
+      //             color: Colors.blueGrey,
+      //             borderRadius: BorderRadius.only(
+      //               bottomLeft: Radius.circular(20),
+      //               bottomRight: Radius.circular(20),
+      //             ),
+      //           ),
+      //           child: Column(
+      //             children: [
+      //               CircleAvatar(
+      //                 radius: screenSize.width * 0.08,
+      //                 backgroundColor: Colors.white,
+      //                 child: Image.asset(
+      //                   "assets/images/logowithouttext.png",
+      //                   fit: BoxFit.contain,
+      //                   width: screenSize.width * 0.12,
+      //                   height: screenSize.width * 0.12,
+      //                   errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+      //                 ),
+      //               ),
+      //               const SizedBox(height: 10),
+      //               Text(
+      //                 "Welcome to ChemEarth!",
+      //                 style: TextStyle(
+      //                   color: Colors.white, 
+      //                   fontSize: screenSize.width * 0.04,
+      //                   fontWeight: FontWeight.bold
+      //                 ),
+      //                 textAlign: TextAlign.center,
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //         Expanded(
+      //           child: ListView(
+      //             children: [
+      //               _buildDrawerTile(Icons.home, 'Home', () {
+      //                 _onItemTapped(0);
+      //                 Navigator.pop(context);
+      //               }),
+      //               _buildDrawerTile(Icons.info_outline, 'About', () {
+      //                 Get.to(() => AboutScreen());
+      //               }),
+      //               _buildDrawerTile(Icons.school, 'Topics', () {
+      //                 Get.to(() => TopicsPage());
+      //               }),
+      //               _buildDrawerTile(Icons.perm_contact_cal_rounded, 'Contact', () {
+      //                 Get.to(() => ContactScreen());
+      //               }),
+      //               _buildDrawerTile(Icons.groups_rounded, 'Our Team', () {
+      //                 Get.to(() => TeamScreen());
+      //               }),
+      //             ],
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       appBar: AppBar(
         backgroundColor: isDark ? Colors.grey[900] : Colors.blueGrey[50],
         elevation: 2,
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.blueGrey),
-          onPressed: () {
-            _scaffoldKey.currentState!.openDrawer();
-          },
+        leading: Image.asset(
+          "assets/images/logowithouttext.png",
+          height: 86,
+          width: 86,
+          errorBuilder: (context, error, stackTrace) =>
+          const Icon(Icons.image_not_supported, color: Colors.grey),
         ),
         title: const Text(
           'ChemEarth',
@@ -121,13 +122,13 @@ class _DashboardState extends State<Dashboard> {
         ),
         centerTitle: true,
         actions: [
-          Image.asset(
-              "assets/images/logowithouttext.png",
-              height: 86,
-              width: 86,
-              errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.image_not_supported, color: Colors.grey),
-            ),
+          IconButton(
+            onPressed: () {
+              Get.to(SettingsPage());
+            },
+            icon: const Icon(Icons.settings,size: 30,),
+            color: isDark ? Colors.white : Colors.blueGrey,
+          ),
         ],
       ),
       body: AnimatedContainer(
@@ -185,8 +186,8 @@ class _DashboardState extends State<Dashboard> {
               label: 'Quiz',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings_suggest_sharp),
-              label: 'Settings',
+              icon: Icon(Icons.school_outlined),
+              label: 'Topics',
             ),
           ],
         ),
