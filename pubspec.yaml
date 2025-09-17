@@ -78,6 +78,7 @@ flutter:
     - assets/images/
     - assets/database/ChemistryFormula.db
     - assets/database/subtopics.json
+    - assets/database/quiz_questions.json
 #    - assets/images/chem_earth_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,65 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:chem_earth_app/utils/import_export.dart';
 
-class QuizScreen extends StatefulWidget {
+class QuizScreen extends StatelessWidget {
   final String topic;
+  final int quizID;
+  final int questionCount;
 
-  const QuizScreen({super.key, required this.topic});
+  QuizScreen({
+    super.key,
+    required this.topic,
+    required this.quizID,
+    this.questionCount = 10,
+  });
 
-  @override
-  State<QuizScreen> createState() => _QuizScreenState();
-}
-
-class _QuizScreenState extends State<QuizScreen> {
-  final List<Map<String, dynamic>> quizQuestions = [
-    {
-      'question': '1. What is the chemical symbol for water?',
-      'options': ['H₂O', 'O₂', 'CO₂', 'NaCl'],
-      'answer': 'H₂O',
-    },
-    {
-      'question': '2. Which gas do plants absorb from the atmosphere?',
-      'options': ['Oxygen', 'Nitrogen', 'Carbon Dioxide', 'Hydrogen'],
-      'answer': 'Carbon Dioxide',
-    },
-    {
-      'question': '3. What is the pH of pure water?',
-      'options': ['7', '0', '14', '1'],
-      'answer': '7',
-    },
-    {
-      'question': '4. Which of these is a noble gas?',
-      'options': ['Oxygen', 'Nitrogen', 'Helium', 'Hydrogen'],
-      'answer': 'Helium',
-    },
-    {
-      'question': '5. What is NaCl commonly known as?',
-      'options': ['Baking Soda', 'Sugar', 'Salt', 'Bleach'],
-      'answer': 'Salt',
-    },
-  ];
-
-  Map<int, String> selectedAnswers = {};
-
-  void _submitQuiz() {
-    int correct = 0;
-    for (int i = 0; i < quizQuestions.length; i++) {
-      if (selectedAnswers[i] == quizQuestions[i]['answer']) {
-        correct++;
-      }
-    }
-
-    double percentage = (correct / quizQuestions.length) * 100;
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => QuizResultScreen(percentage: percentage),
-      ),
-    );
-  }
+  final QuizController _quizController = Get.put(QuizController());
 
   @override
   Widget build(BuildContext context) {
+    // Start the quiz only once when the widget is first built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _quizController.startQuiz(quizID, questionCount: questionCount);
+    });
+
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final colorScheme = theme.colorScheme;
@@ -67,21 +30,28 @@ class _QuizScreenState extends State<QuizScreen> {
     return Scaffold(
       backgroundColor: colorScheme.background,
       appBar: AppBar(
-        title: Text('Quiz - ${widget.topic}'),
+        title: Text('Quiz - $topic'),
         backgroundColor: Colors.blueGrey,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: ListView(
-            children: [
-              const SizedBox(height: 8),
-              ...List.generate(quizQuestions.length, (questionIndex) {
-                final q = quizQuestions[questionIndex];
-                final questionText = q['question'];
-                final options = q['options'];
+        child: Obx(() {
+          if (_quizController.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-                return Container(
+          if (!_quizController.isQuizActive) {
+            return const Center(child: Text("No Questions Available"));
+          }
+
+          final question = _quizController.currentQuestion!;
+          final questionIndex = _quizController.currentQuestionIndex;
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: ListView(
+              children: [
+                const SizedBox(height: 8),
+                Container(
                   margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: isDark
@@ -105,37 +75,56 @@ class _QuizScreenState extends State<QuizScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          questionText,
+                          "${questionIndex + 1}. ${question.question}",
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: colorScheme.primary,
                           ),
                         ),
                         const SizedBox(height: 12),
-                        ...List.generate(options.length, (index) {
-                          final option = options[index];
+                        ...List.generate(question.options.length, (index) {
+                          final option = question.options[index];
                           final isSelected =
-                              selectedAnswers[questionIndex] == option;
+                              _quizController.selectedAnswer == option;
+                          final isCorrect = option == question.correctAnswer;
+
+                          Color? optionColor;
+                          if (_quizController.showExplanation) {
+                            if (isSelected && isCorrect) {
+                              optionColor = Colors.green.shade300; // Correct
+                            } else if (isSelected && !isCorrect) {
+                              optionColor = Colors.red.shade300; // Wrong
+                            } else if (!isSelected && isCorrect) {
+                              optionColor = Colors.green.shade200; // Correct answer
+                            } else {
+                              optionColor = Colors.transparent;
+                            }
+                          } else {
+                            optionColor = isSelected
+                                ? (isDark
+                                ? Colors.blueGrey.withOpacity(0.2)
+                                : Colors.blueGrey.shade100)
+                                : Colors.transparent;
+                          }
 
                           return GestureDetector(
                             onTap: () {
-                              setState(() {
-                                selectedAnswers[questionIndex] = option;
-                              });
+                              if (!_quizController.showExplanation) {
+                                _quizController.selectAnswer(option);
+                              }
                             },
                             child: Container(
                               margin: const EdgeInsets.symmetric(vertical: 6.0),
                               padding: const EdgeInsets.symmetric(
-                                vertical: 12,
-                                horizontal: 10,
-                              ),
+                                  vertical: 14, horizontal: 12),
                               decoration: BoxDecoration(
-                                color: isSelected
-                                    ? (isDark
-                                    ? Colors.blueGrey.withOpacity(0.2)
-                                    : Colors.blueGrey.shade100)
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(10),
+                                color: optionColor,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                    color: isSelected
+                                        ? Colors.blueGrey
+                                        : Colors.grey.withOpacity(0.5),
+                                    width: 1.2),
                               ),
                               child: Row(
                                 children: [
@@ -143,18 +132,25 @@ class _QuizScreenState extends State<QuizScreen> {
                                     isSelected
                                         ? Icons.radio_button_checked
                                         : Icons.radio_button_off,
-                                    size: 20,
-                                    color: isSelected
+                                    size: 22,
+                                    color: _quizController.showExplanation
+                                        ? (isCorrect
+                                        ? Colors.green
+                                        : isSelected
+                                        ? Colors.red
+                                        : Colors.grey)
+                                        : (isSelected
                                         ? Colors.blueGrey
-                                        : Colors.grey,
+                                        : Colors.grey),
                                   ),
-                                  const SizedBox(width: 10),
+                                  const SizedBox(width: 12),
                                   Expanded(
                                     child: Text(
                                       option,
-                                      style:
-                                      theme.textTheme.bodyLarge?.copyWith(
-                                        color: theme.colorScheme.onSurface.withOpacity(0.85),
+                                      style: theme.textTheme.bodyLarge
+                                          ?.copyWith(
+                                        color: theme.colorScheme.onSurface
+                                            .withOpacity(0.85),
                                       ),
                                     ),
                                   ),
@@ -163,32 +159,80 @@ class _QuizScreenState extends State<QuizScreen> {
                             ),
                           );
                         }),
+                        if (_quizController.showExplanation)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: Text(
+                              "Explanation: ${question.explanation}",
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: Colors.orangeAccent,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),
-                );
-              }),
-              const SizedBox(height: 30),
-              ElevatedButton.icon(
-                onPressed: _submitQuiz,
-                icon: const Icon(Icons.check_circle_outline,
-                    color: Colors.white),
-                label: const Text(
-                  'Submit Quiz',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueGrey,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (questionIndex > 0)
+                      ElevatedButton.icon(
+                        onPressed: _quizController.previousQuestion,
+                        icon: const Icon(Icons.arrow_back,color: Colors.white,),
+                        label: const Text("Previous",style: TextStyle(color: Colors.white),),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueGrey.shade700,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 16),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          elevation: 4,
+                        ),
+                      ),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        if (!_quizController.showExplanation) {
+                          _quizController.submitAnswer();
+                        } else {
+                          _quizController.nextQuestion();
+                        }
+                      },
+                      icon: Icon(_quizController.showExplanation
+                          ? Icons.arrow_forward
+                          : Icons.check,color: Colors.white,),
+                      label: Text(_quizController.showExplanation
+                          ? "Next"
+                          : "Submit",style: TextStyle(color: Colors.white),),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueGrey.shade800,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 16),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        elevation: 4,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 40),
-            ],
-          ),
-        ),
+                const SizedBox(height: 30),
+                LinearProgressIndicator(
+                  value: _quizController.progress,
+                  backgroundColor: Colors.grey.shade300,
+                  color: Colors.blueGrey,
+                  minHeight: 8,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Time: ${_quizController.formattedTime}",
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(color: colorScheme.primary),
+                ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

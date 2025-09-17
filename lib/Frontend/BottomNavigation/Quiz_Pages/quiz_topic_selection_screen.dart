@@ -1,4 +1,7 @@
 import 'package:chem_earth_app/utils/import_export.dart';
+import 'quiz_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class QuizTopicSelectionScreen extends StatelessWidget {
   QuizTopicSelectionScreen({super.key});
@@ -51,9 +54,7 @@ class QuizTopicSelectionScreen extends StatelessWidget {
       ),
       body: Obx(() {
         if (quizController.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (quizController.quizTopics.isEmpty) {
@@ -76,6 +77,10 @@ class QuizTopicSelectionScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () => quizController.loadQuizTopics(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueGrey,
+                    foregroundColor: Colors.white,
+                  ),
                   child: const Text('Refresh'),
                 ),
               ],
@@ -91,7 +96,8 @@ class QuizTopicSelectionScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final topic = quizController.quizTopics[index];
               final topicIcon = topicIcons[topic.topicName] ?? Icons.quiz;
-              final topicColor = topicColors[topic.topicName] ?? Colors.blueGrey;
+              final topicColor =
+                  topicColors[topic.topicName] ?? Colors.blueGrey;
 
               return GestureDetector(
                 onTap: () {
@@ -110,9 +116,8 @@ class QuizTopicSelectionScreen extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: isDark
-                          ? Colors.white12
-                          : topicColor.withOpacity(0.2),
+                      color:
+                      isDark ? Colors.white12 : topicColor.withOpacity(0.2),
                     ),
                     boxShadow: !isDark
                         ? [
@@ -148,14 +153,18 @@ class QuizTopicSelectionScreen extends StatelessWidget {
                         color: colorScheme.onSurface,
                       ),
                     ),
-                    subtitle: Text(
-                      topic.description,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurface.withOpacity(0.7),
+                    subtitle: topic.description.isNotEmpty
+                        ? Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Text(
+                        topic.description,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color:
+                          colorScheme.onSurface.withOpacity(0.75),
+                        ),
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    )
+                        : null,
                     trailing: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
@@ -239,6 +248,8 @@ class QuizTopicSelectionScreen extends StatelessWidget {
   void _startQuiz(QuizTopicModel topic, int questionCount) {
     Get.to(() => QuizScreen(
       topic: topic.topicName,
+      quizID: topic.quizID ?? 0,
+      questionCount: questionCount,
     ));
   }
 }

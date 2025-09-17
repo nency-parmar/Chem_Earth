@@ -1,9 +1,17 @@
 import 'package:chem_earth_app/utils/import_export.dart';
+import 'quiz_screen.dart';
 
 class QuizResultScreen extends StatefulWidget {
   final double percentage;
+  final String topic;
+  final int quizID; // non-nullable
 
-  const QuizResultScreen({super.key, required this.percentage});
+  const QuizResultScreen({
+    super.key,
+    required this.percentage,
+    required this.topic,
+    required this.quizID,
+  });
 
   @override
   State<QuizResultScreen> createState() => _QuizResultScreenState();
@@ -14,16 +22,17 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final primaryColor = Theme.of(context).colorScheme.primary;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
+    final primaryColor = theme.colorScheme.primary;
+    final textColor = theme.textTheme.bodyLarge?.color ?? Colors.black;
 
     String feedback = widget.percentage == 100
         ? 'Good job! Keep it up!'
         : 'Do more hard work. You can do better!';
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -62,21 +71,26 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
               ElevatedButton.icon(
                 onPressed: () {
                   setState(() {
-                    showBackButton = false; // Hide "Back to Dashboard"
+                    showBackButton = false;
                   });
 
-                  Future.delayed(Duration(milliseconds: 100), () {
-                    Get.off(() => QuizScreen(topic: 'YourTopicHere')); // Replace topic
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    Get.off(() => QuizScreen(
+                      topic: widget.topic,
+                      quizID: widget.quizID,
+                      questionCount: 10, // Default or previously selected count
+                    ));
                   });
                 },
+                icon: const Icon(Icons.replay, color: Colors.white),
                 label: const Text(
                   'Give Test Again',
                   style: TextStyle(color: Colors.white),
                 ),
-                icon: const Icon(Icons.replay, color: Colors.white),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -91,14 +105,15 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
                   onPressed: () {
                     Get.offAll(() => Dashboard());
                   },
+                  icon: const Icon(Icons.dashboard, color: Colors.white),
                   label: const Text(
                     'Back to Dashboard',
                     style: TextStyle(color: Colors.white),
                   ),
-                  icon: const Icon(Icons.dashboard, color: Colors.white),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey.shade700,
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

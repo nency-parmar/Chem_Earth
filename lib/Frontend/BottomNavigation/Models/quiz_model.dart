@@ -33,6 +33,7 @@ class QuizTopicModel {
 class QuizQuestionModel {
   final int? questionID;
   final int? quizID;
+  final String topicName; // Added field
   final String question;
   final String optionA;
   final String optionB;
@@ -45,6 +46,7 @@ class QuizQuestionModel {
   QuizQuestionModel({
     this.questionID,
     this.quizID,
+    required this.topicName, // required
     required this.question,
     required this.optionA,
     required this.optionB,
@@ -59,6 +61,7 @@ class QuizQuestionModel {
     return QuizQuestionModel(
       questionID: map['QuestionID'],
       quizID: map['QuizID'],
+      topicName: map['TopicName'] ?? '', // mapped from JSON
       question: map['Question'] ?? '',
       optionA: map['OptionA'] ?? '',
       optionB: map['OptionB'] ?? '',
@@ -74,6 +77,7 @@ class QuizQuestionModel {
     return {
       'QuestionID': questionID,
       'QuizID': quizID,
+      'TopicName': topicName, // include topicName
       'Question': question,
       'OptionA': optionA,
       'OptionB': optionB,
@@ -128,6 +132,7 @@ class QuizResultModel {
   }
 
   double get percentage => (score / totalQuestions) * 100;
+
   String get formattedTime {
     final minutes = timeSpentSeconds ~/ 60;
     final seconds = timeSpentSeconds % 60;

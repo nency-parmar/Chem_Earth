@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:chem_earth_app/utils/import_export.dart';
-import 'dart:async';
 
 class QuizController extends GetxController {
   final DatabaseHelper _databaseHelper = DatabaseHelper();
@@ -8,6 +12,9 @@ class QuizController extends GetxController {
   // Quiz Topics
   final RxList<QuizTopicModel> _quizTopics = <QuizTopicModel>[].obs;
   List<QuizTopicModel> get quizTopics => _quizTopics;
+
+  // All Questions loaded once
+  final RxList<QuizQuestionModel> _allQuestions = <QuizQuestionModel>[].obs;
 
   // Current Quiz State
   final RxList<QuizQuestionModel> _questions = <QuizQuestionModel>[].obs;
@@ -51,19 +58,40 @@ class QuizController extends GetxController {
     super.onClose();
   }
 
-  // Load all quiz topics
+  // ------------------ Load Quiz Topics ------------------
   Future<void> loadQuizTopics() async {
+    _isLoading.value = true;
     try {
-      _isLoading.value = true;
-      final topicsData = await _databaseHelper.getAllQuizTopics();
-      _quizTopics.value = topicsData
-          .map((data) => QuizTopicModel.fromMap(data))
+      final String jsonString =
+      await rootBundle.loadString('assets/database/quiz_questions.json');
+
+      final List<dynamic> jsonList = json.decode(jsonString);
+
+      // Convert to QuizQuestionModel
+      final allQs = jsonList.map((q) => QuizQuestionModel.fromMap(q)).toList();
+      _allQuestions.value = allQs;
+
+      // Extract unique topics dynamically
+      final topicMap = <int, String>{};
+      for (var q in allQs) {
+        if (q.quizID != null && q.topicName.isNotEmpty) {
+          topicMap[q.quizID!] = q.topicName;
+        }
+      }
+
+      _quizTopics.value = topicMap.entries
+          .map((e) => QuizTopicModel(
+        quizID: e.key,
+        topicName: e.value,
+        description: '',
+        iconPath: null,
+      ))
           .toList();
     } catch (e) {
-      print('Error loading quiz topics: $e');
+      print('Error loading JSON: $e');
       Get.snackbar(
         'Error',
-        'Failed to load quiz topics',
+        'Failed to load quiz questions',
         snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
@@ -71,33 +99,39 @@ class QuizController extends GetxController {
     }
   }
 
-  // Start a quiz for a specific topic
+  // ------------------ Quiz Logic ------------------
   Future<void> startQuiz(int quizID, {int? questionCount}) async {
+    _isLoading.value = true;
     try {
-      _isLoading.value = true;
       _resetQuiz();
 
-      final questionsData = await _databaseHelper.getQuizQuestions(
-        quizID,
-        limit: questionCount ?? 10,
-      );
+      // Filter questions by selected quizID
+      final filteredQuestions =
+      _allQuestions.where((q) => q.quizID == quizID).toList();
 
-      if (questionsData.isEmpty) {
-        Get.snackbar(
-          'No Questions',
-          'No questions available for this topic',
-          snackPosition: SnackPosition.BOTTOM,
-        );
+      if (filteredQuestions.isEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Get.snackbar(
+            'No Questions',
+            'No questions available for this topic',
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        });
         return;
       }
 
-      _questions.value = questionsData
-          .map((data) => QuizQuestionModel.fromMap(data))
-          .toList();
+      // Shuffle questions randomly
+      filteredQuestions.shuffle(Random());
+
+      // Limit number of questions to available questions
+      final int count = questionCount != null
+          ? min(questionCount, filteredQuestions.length)
+          : filteredQuestions.length;
+
+      _questions.value = filteredQuestions.take(count).toList();
 
       _isQuizActive.value = true;
       _startTimer();
-
     } catch (e) {
       print('Error starting quiz: $e');
       Get.snackbar(
@@ -110,12 +144,10 @@ class QuizController extends GetxController {
     }
   }
 
-  // Select an answer
   void selectAnswer(String answer) {
     _selectedAnswer.value = answer;
   }
 
-  // Submit current answer and move to next question
   void submitAnswer() {
     if (_selectedAnswer.value.isEmpty) {
       Get.snackbar(
@@ -126,17 +158,14 @@ class QuizController extends GetxController {
       return;
     }
 
-    // Check if answer is correct
     final currentQ = currentQuestion;
     if (currentQ != null && _selectedAnswer.value == currentQ.correctAnswer) {
       _score.value++;
     }
 
-    // Show explanation
     _showExplanation.value = true;
   }
 
-  // Move to next question
   void nextQuestion() {
     _showExplanation.value = false;
     _selectedAnswer.value = '';
@@ -144,12 +173,10 @@ class QuizController extends GetxController {
     if (_currentQuestionIndex.value < _questions.length - 1) {
       _currentQuestionIndex.value++;
     } else {
-      // Quiz completed
       _finishQuiz();
     }
   }
 
-  // Go to previous question (if needed)
   void previousQuestion() {
     if (_currentQuestionIndex.value > 0) {
       _showExplanation.value = false;
@@ -158,15 +185,14 @@ class QuizController extends GetxController {
     }
   }
 
-  // Finish the quiz and save results
   Future<void> _finishQuiz() async {
     _timer?.cancel();
     _isQuizActive.value = false;
 
     try {
-      // Save quiz result
+      final currentQ = this.currentQuestion;
       final result = QuizResultModel(
-        quizID: currentQuestion?.quizID,
+        quizID: currentQ?.quizID ?? 0,
         score: _score.value,
         totalQuestions: _questions.length,
         dateTaken: DateTime.now(),
@@ -175,18 +201,19 @@ class QuizController extends GetxController {
 
       await _databaseHelper.saveQuizResult(result);
 
-      // Navigate to result screen
       final percentage = (_score.value / _questions.length) * 100;
       Get.to(() => QuizResultScreen(
         percentage: percentage,
+        topic: currentQ?.topicName ?? 'Unknown Topic',
+        quizID: currentQ?.quizID ?? 0,
       ));
-
     } catch (e) {
       print('Error saving quiz result: $e');
+      Get.snackbar('Error', 'Failed to save quiz result',
+          snackPosition: SnackPosition.BOTTOM);
     }
   }
 
-  // Reset quiz state
   void _resetQuiz() {
     _currentQuestionIndex.value = 0;
     _score.value = 0;
@@ -197,14 +224,12 @@ class QuizController extends GetxController {
     _timer?.cancel();
   }
 
-  // Start timer
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _timeSpent.value++;
     });
   }
 
-  // Exit quiz
   void exitQuiz() {
     _timer?.cancel();
     _isQuizActive.value = false;
@@ -212,28 +237,22 @@ class QuizController extends GetxController {
     Get.back();
   }
 
-  // Get quiz results history
   Future<List<QuizResultModel>> getQuizResults({int? quizID}) async {
     try {
       final resultsData = await _databaseHelper.getQuizResults(quizID: quizID);
-      return resultsData
-          .map((data) => QuizResultModel.fromMap(data))
-          .toList();
+      return resultsData.map((data) => QuizResultModel.fromMap(data)).toList();
     } catch (e) {
       print('Error getting quiz results: $e');
       return [];
     }
   }
 
-  // Format time display
   String get formattedTime {
     final minutes = _timeSpent.value ~/ 60;
     final seconds = _timeSpent.value % 60;
     return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
-  // Get progress percentage
-  double get progress => _questions.isEmpty
-      ? 0.0
-      : (_currentQuestionIndex.value + 1) / _questions.length;
+  double get progress =>
+      _questions.isEmpty ? 0.0 : (_currentQuestionIndex.value + 1) / _questions.length;
 }
