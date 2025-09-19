@@ -164,7 +164,7 @@ class AboutScreen extends StatelessWidget {
                       _buildInfoRow("Explored By", "Nency"),
                       _buildInfoRow("Contact No", "9033190716"),
                       _buildInfoRow("App Title", "ChemEarth"),
-                      _buildInfoRow("Share Message", "This is Chemistry App"),
+                      _buildInfoRow("Share Message", "This is Chemistry App!!!"),
                     ],
                   ),
 
@@ -481,7 +481,7 @@ class AboutScreen extends StatelessWidget {
                   isDark
                       ? "assets/images/aswdc_transparent.png"
                       : "assets/images/aswdc_black.jpeg",
-                  height: 80,
+                  height: 50,
                   fit: BoxFit.contain,
                 ),
               ),

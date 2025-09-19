@@ -182,6 +182,37 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               ),
             ),
           ),
+          // Two responsive logos at the bottom
+          Positioned(
+            bottom: 24,
+            left: 0,
+            right: 0,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final width = constraints.maxWidth;
+                final spacing = width * 0.06;
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/du_logo.png',
+                      height: 80,
+                      fit: BoxFit.contain,
+                    ),
+                    SizedBox(width: spacing.clamp(16, 40)),
+                    Image.asset(
+                      'assets/images/aswdc_black.jpeg',
+                      height: 50,
+                      fit: BoxFit.contain,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+
+
         ],
       ),
     );

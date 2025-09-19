@@ -155,38 +155,45 @@ class _PeriodicTableState extends State<PeriodicTable>
             onSelected: (String value) {
               _sortElements(value);
             },
-            itemBuilder: (BuildContext context) => [
-              const PopupMenuItem<String>(
-                value: 'atomic_number',
-                child: Row(
-                  children: [
-                    Icon(Icons.numbers, size: 20),
-                    SizedBox(width: 8),
-                    Text('Atomic Number'),
-                  ],
+            itemBuilder: (BuildContext context) {
+              final isLight = Theme.of(context).brightness == Brightness.light;
+              final iconColor = isLight ? Colors.black : Colors.white;
+              final textColor = isLight ? Colors.black : Colors.white;
+
+              return [
+                PopupMenuItem<String>(
+                  value: 'atomic_number',
+                  child: Row(
+                    children: [
+                      Icon(Icons.numbers, size: 20, color: iconColor),
+                      const SizedBox(width: 8),
+                      Text('Atomic Number', style: TextStyle(color: textColor)),
+                    ],
+                  ),
                 ),
-              ),
-              const PopupMenuItem<String>(
-                value: 'name',
-                child: Row(
-                  children: [
-                    Icon(Icons.abc, size: 20),
-                    SizedBox(width: 8),
-                    Text('Name (A-Z)'),
-                  ],
+                PopupMenuItem<String>(
+                  value: 'name',
+                  child: Row(
+                    children: [
+                      Icon(Icons.abc, size: 20, color: iconColor),
+                      const SizedBox(width: 8),
+                      Text('Name (A-Z)', style: TextStyle(color: textColor)),
+                    ],
+                  ),
                 ),
-              ),
-              const PopupMenuItem<String>(
-                value: 'mass',
-                child: Row(
-                  children: [
-                    Icon(Icons.fitness_center, size: 20),
-                    SizedBox(width: 8),
-                    Text('Atomic Mass'),
-                  ],
+                PopupMenuItem<String>(
+                  value: 'mass',
+                  child: Row(
+                    children: [
+                      Icon(Icons.fitness_center, size: 20, color: iconColor),
+                      const SizedBox(width: 8),
+                      Text('Atomic Mass', style: TextStyle(color: textColor)),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ];
+            },
+
           ),
           // View toggle button
           IconButton(
